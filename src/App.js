@@ -158,10 +158,10 @@ function Board() {
   return (
     <div className='game-wrapper'>
       <div className='board-wrapper'>
-        {rows.map((row) => (
+        {rows.map((row, i) => (
           //<div key={row}>
             //{row}
-            columns.map((col) => {
+            columns.map((col, j) => {
               const id = row * 10 + col;
               const piece = pieces[id];
               return (
