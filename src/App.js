@@ -159,22 +159,22 @@ function Board() {
     <div className='game-wrapper'>
       <div className='board-wrapper'>
         {rows.map((row) => (
-          <div key={row}>
-            {row}
-            {columns.map((col) => {
+          //<div key={row}>
+            //{row}
+            columns.map((col) => {
               const id = row * 10 + col;
               const piece = pieces[id];
               return (
                 <Square 
-                  key={id}  
+                  key={i*8+j}  
                   id={id}
                   piece={piece}
                   onSquareClick={handeClick}
                   availableMoves={availableMoves} 
                 />
               );
-            })}
-          </div>
+            })
+          //</div>
         ))}
       </div>
       <div className='buttons-wrapper'>

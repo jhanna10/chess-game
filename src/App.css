@@ -46,6 +46,12 @@ body {
   background: #f4f4f4; /* or whatever background color you like */
 }
 
+.board-wrapper {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0px;
+}
+
 .game-wrapper {
   display: flex;
   flex-direction: column;
