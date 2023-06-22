@@ -1,4 +1,4 @@
-#A game of chess built with React
+# A game of chess built with React
 
 This is a two player chess game built with react. I used this project to learn React
 
