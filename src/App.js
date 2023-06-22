@@ -1,14 +1,14 @@
 import './App.css';
 import { getMoves } from './chessLogic/moves';
 import { useChessLogic } from './chessLogic/logic.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Square, PrevMove, FirstMove, Play, NextMove, LastMove } from './components.js';
 
 const BOARD_SIZE = 8;
 
 
 function Board() {
-
+  const [gameRunning, setGameRunning] = useState(true);
   const {
     pieces,
     setPieces,
@@ -37,7 +37,7 @@ function Board() {
   const columns = Array.from({ length: BOARD_SIZE }, (_, i) => i + 1); // [1, 2, 3, 4, 5, 6, 7, 8]
 
   useEffect(() => {
-    setCurrentMove(moveHistory.length);
+      setCurrentMove(moveHistory.length);
   }, [moveHistory.length, setCurrentMove]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ function Board() {
   }
 
   const handeClick = (id, piece) => {
-    if(piece !== undefined && isPlayersTurn(piece) && currentMove === boardHistory.length - 1) {
+    if(piece !== undefined && isPlayersTurn(piece) && gameRunning) {
       let moves = getMoves(id, piece, pieces, moveHistory, isKingChecked);
       let movesCopy = moves.slice();
       for(const move of movesCopy) {
@@ -107,9 +107,10 @@ function Board() {
   function goBack() {
     if(currentMove > 0) {
       setPieces(boardHistory[currentMove - 1]);
-      setCurrentMove(currentMove => currentMove - 1);
+      setCurrentMove(currentMove - 1);
       setSelectedPiece(undefined);
       setAvailableMoves([]);
+      setGameRunning(false);
     }
   }
   
@@ -119,6 +120,9 @@ function Board() {
       setCurrentMove(currentMove => currentMove + 1);
       setSelectedPiece(undefined);
       setAvailableMoves([]);
+      if(currentMove === boardHistory.length - 2) {
+        setGameRunning(true);
+      }
     }
   }
 
@@ -127,6 +131,7 @@ function Board() {
     setCurrentMove(0);
     setSelectedPiece(undefined);
     setAvailableMoves([]);
+    setGameRunning(false);
   }
 
   function goLast() {
@@ -134,20 +139,25 @@ function Board() {
     setCurrentMove(boardHistory.length - 1);
     setSelectedPiece(undefined);
     setAvailableMoves([]);
+    setGameRunning(true);
   }
 
+  
   function setPlay() {
     let newBoardHistory = [ ...boardHistory ];
     newBoardHistory.splice(currentMove + 1);
+    let newMoveHistory = [ ...moveHistory ];
+    newMoveHistory.splice(currentMove);
     setBoardHistory(newBoardHistory);
+    setMoveHistory(newMoveHistory);
     setCurrentMove(newBoardHistory.length - 1);
     setIsWhTurn(newBoardHistory.length % 2 === 0 ? false : true);
+    setGameRunning(true);  // Game is now running
   }
 
-
   return (
-    <div class='game-wrapper'>
-      <div class='board-wrapper'>
+    <div className='game-wrapper'>
+      <div className='board-wrapper'>
         {rows.map((row) => (
           <div key={row}>
             {row}
@@ -167,7 +177,7 @@ function Board() {
           </div>
         ))}
       </div>
-      <div class='buttons-wrapper'>
+      <div className='buttons-wrapper'>
         <FirstMove
           onClick={goFirst}
         />
