@@ -36,14 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #f4f4f4; /* or whatever background color you like */
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons-wrapper {
+  margin-top: .5em;
+}
+
 .button {
-  width: 50px;
-  height: 40px;
+  width: max(40px, 12vmin);
+  height: max(25px, 7vmin);
 }
 .square {
-  width: 75px;
-  height: 75px;
+  width: 10vmin; /* 100vw / 8 (8 squares in a row) */
+  height: 10vmin; /* Make height equal to width to ensure squares */
   position: relative;
+  background-size: 100% 100%; /* Ensure background images cover the entire square */
 }
 .sWhite {
   background: white;
@@ -63,7 +85,11 @@
   left: 0;
 }
 .board {
-  width: 600px;
+  width: 80vmin;
+  max-width: 80vw;
+  display: flex;
+  flex-wrap: wrap; /* Wrap squares to new lines */
+  margin: 0 auto; 
 }
 .br {
   background-image: 

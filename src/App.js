@@ -146,26 +146,28 @@ function Board() {
 
 
   return (
-    <div>
-      {rows.map((row) => (
-        <div key={row}>
-          {row}
-          {columns.map((col) => {
-            const id = row * 10 + col;
-            const piece = pieces[id];
-            return (
-              <Square 
-                key={id}  
-                id={id}
-                piece={piece}
-                onSquareClick={handeClick}
-                availableMoves={availableMoves} 
-              />
-            );
-          })}
-        </div>
-      ))}
-      <div>
+    <div class='game-wrapper'>
+      <div class='board-wrapper'>
+        {rows.map((row) => (
+          <div key={row}>
+            {row}
+            {columns.map((col) => {
+              const id = row * 10 + col;
+              const piece = pieces[id];
+              return (
+                <Square 
+                  key={id}  
+                  id={id}
+                  piece={piece}
+                  onSquareClick={handeClick}
+                  availableMoves={availableMoves} 
+                />
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      <div class='buttons-wrapper'>
         <FirstMove
           onClick={goFirst}
         />
