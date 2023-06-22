@@ -5,8 +5,6 @@ export function getMoves(id, piece, pieceMap, history, isKingChecked) {
     const y = Math.floor(id / 10);
     const color = piece.slice(0, 1);
     piece = piece.slice(1);
-    // console.log('history: ' + JSON.stringify(history));
-    //console.log('pieceMap: ' + JSON.stringify(pieceMap));
     const pieceMoves = {
       'p': getPawnMove,
       'r': getRookMoves,
